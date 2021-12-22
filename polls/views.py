@@ -1,12 +1,12 @@
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
 
-from .models import Choice, Question
 from .forms import ContactForm
+from .models import Choice, Question
 
 
 class IndexView(generic.ListView):
@@ -60,7 +60,7 @@ def contact_form(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
+            # print(form.cleaned_data)
             send_mail(
                 subject=form.cleaned_data['subject'],
                 message=form.cleaned_data['message'],
@@ -73,6 +73,3 @@ def contact_form(request):
     return render(request, 'contact_form.html', {
         'form': form,
     })
-
-
-
