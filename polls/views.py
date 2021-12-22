@@ -1,10 +1,12 @@
+from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
 
 from .models import Choice, Question
+from .forms import ContactForm
 
 
 class IndexView(generic.ListView):
@@ -52,3 +54,25 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+
+def contact_form(request):
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            send_mail(
+                subject=form.cleaned_data['subject'],
+                message=form.cleaned_data['message'],
+                from_email="noreply@mysite.com",
+                recipient_list=[form.cleaned_data['email']]
+            )
+            return redirect("polls:contact_form")
+    else:
+        form = ContactForm(initial={'email': 'test@test.com'})
+    return render(request, 'contact_form.html', {
+        'form': form,
+    })
+
+
+
