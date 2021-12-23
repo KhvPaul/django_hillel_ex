@@ -21,8 +21,10 @@ class ContactForm(forms.Form):
 
 
 class TriangleForm(forms.Form):
-    a = forms.FloatField(label='Cathetus a', min_value=0.01, widget=forms.TextInput(attrs={'placeholder': 'Number > 0'}))
-    b = forms.FloatField(label='Cathetus b', min_value=0.01, widget=forms.TextInput(attrs={'placeholder': 'Number > 0'}))
+    a = forms.FloatField(label='Cathetus a', min_value=0.01,
+                         widget=forms.TextInput(attrs={'placeholder': 'Number > 0'}))
+    b = forms.FloatField(label='Cathetus b', min_value=0.01,
+                         widget=forms.TextInput(attrs={'placeholder': 'Number > 0'}))
 
     # def clean(self):
     #     cleaned_data = super().clean()
