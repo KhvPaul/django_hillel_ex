@@ -1,3 +1,5 @@
+import math
+
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
@@ -5,7 +7,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
 
-from .forms import ContactForm
+from .forms import ContactForm, TriangleForm
 from .models import Choice, Question
 
 
@@ -71,5 +73,21 @@ def contact_form(request):
     else:
         form = ContactForm(initial={'email': 'test@test.com'})
     return render(request, 'contact_form.html', {
+        'form': form,
+    })
+
+
+def triangle_form(request):
+    if request.method == "POST":
+        form = TriangleForm(request.POST)
+        if form.is_valid():
+            hypotenuse = math.sqrt(form.cleaned_data['a'] ** 2 + form.cleaned_data['b'] ** 2)
+            hypotenuse = hypotenuse if hypotenuse % 1 != 0 else int(hypotenuse)     # Резало глаз
+            return render(request, 'triangle_form.html', {
+                'hypotenuse': hypotenuse,
+            })
+    else:
+        form = TriangleForm()
+    return render(request, 'triangle_form.html', {
         'form': form,
     })

@@ -18,3 +18,15 @@ class ContactForm(forms.Form):
         subject = cleaned_data['subject']
         if email == subject:
             raise forms.ValidationError("Email can't be same as subject")
+
+
+class TriangleForm(forms.Form):
+    a = forms.FloatField(label='Cathetus a', widget=forms.TextInput(attrs={'placeholder': 'Number > 0'}))
+    b = forms.FloatField(label='Cathetus b', widget=forms.TextInput(attrs={'placeholder': 'Number > 0'}))
+
+    def clean(self):
+        cleaned_data = super().clean()
+        a = cleaned_data.get('a')
+        b = cleaned_data['b']
+        if a <= 0 or b <= 0:
+            raise forms.ValidationError("Cathetus can't be less then 0")
