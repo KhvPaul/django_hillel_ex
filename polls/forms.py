@@ -1,5 +1,7 @@
 from django import forms
 
+from polls.models import Person         # noqa: F401
+
 
 class ContactForm(forms.Form):
     email = forms.EmailField(label='Recipient email', help_text="Can't ends with 'test.com'")
@@ -44,3 +46,14 @@ class TriangleForm(forms.Form):
     #     b = cleaned_data['b']
     #     if a <= 0 or b <= 0:
     #         raise forms.ValidationError("Cathetus can't be less then 0")
+    #
+    #   ^
+    #   |
+    #    \
+    #      ----  Всё поправил
+
+
+# class PersonForm(forms.ModelForm):  # Специально для instance
+#     class Meta:
+#         model = Person
+#         fields = ['first_name', 'last_name', 'email']

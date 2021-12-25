@@ -13,4 +13,10 @@ urlpatterns = [
 
     path('triangle', views.triangle_form, name='triangle_form'),
 
+    path('persons/', views.PersonListView.as_view(), name='persons'),
+    path('person/<int:pk>', views.PersonDetailView.as_view(), name='person-detail'),
+    path('person/create/', views.PersonCreate.as_view(), name='person-create'),
+    path('person/<int:pk>/update/', views.PersonUpdate.as_view(), name='person-update'),
+
+    # path('person/add/', views.add_person, name='person-add'),   # Специально для instance
 ]

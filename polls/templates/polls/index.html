@@ -8,7 +8,8 @@
 </head>
 <body>
     <a href="{% url 'polls:contact_form' %}">Contact Form</a><br>
-    <a href="{% url 'polls:triangle_form' %}">Triangle Form</a>
+    <a href="{% url 'polls:triangle_form' %}">Triangle Form</a><br><br>
+    <a href="{% url 'polls:persons' %}">Person List</a>
     {% if latest_question_list %}
         <ul>
         {% for question in latest_question_list %}
