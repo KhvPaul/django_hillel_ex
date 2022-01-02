@@ -104,11 +104,6 @@ class PersonDetailView(generic.DetailView):
     model = Person
 
     def author_detail_view(self, pk):
-        # try:
-        #     book_id=Book.objects.get(pk=pk)
-        # except Book.DoesNotExist:
-        #     raise Http404("Book does not exist")
-
         person_id = get_object_or_404(Person, pk=pk)
         return render(
             self,
